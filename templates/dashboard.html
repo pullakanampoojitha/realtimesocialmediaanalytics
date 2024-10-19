@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media | Dashboard</title>
+    <script src="static/axios.min.js"></script>
+
+    <style>
+        body {
+            font-family: Georgia, serif;
+        }
+
+        .posts {
+            max-width: 1200px;
+            width: 100%;
+            /* padding: 20px 130px; */
+            display: grid;
+            margin-top: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .cards {
+            height: 300px;
+            width: 200px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 4px;
+
+
+        }
+
+        .nav {
+            padding: 10px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            justify-content: space-around;
+            background-color: seagreen;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .links {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .name {
+            font-size: 2rem;
+        }
+
+        .links a {
+            padding-top: 9px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .links button {
+            width: 100px;
+        }
+
+        .cards .img {
+            height: 200px;
+        }
+
+        img {
+            object-fit: contain;
+            height: 200px;
+            width: 100%;
+        }
+
+        .action {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .action button {
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            color: black;
+        }
+
+
+        .action {
+            padding: 5px;
+        }
+        .boder{
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 250px;
+            height: 300px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            z-index: 1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-content {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <div class="name">
+            Social Media App
+        </div>
+        <div class="links">
+            <a href="/createpost">Create Post</a>
+            <a href="/myposts">My posts</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+    <div class="posts">
+        <div id="commentsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeCommentsModal()">&times;</span>
+                <h2>Comments</h2>
+                <div class="form">
+                    <input type="text" placeholder="Enter your comment here" name="comment" id="come">
+                    <input type="text" id="post_id" hidden readonly>
+                    <button onclick="
+                    pushComment()">post</button>
+                </div>
+                <div id="com">
+
+                </div>
+            </div>
+        </div>
+        <div id="analysisModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeAnalysis()">&times;</span>
+                <h3>Comments Analysis</h3>
+                <div class="form">
+                    <input type="text" id="pos" hidden readonly />
+                </div>
+                <div id="ana">
+                    <h5 id="posi"></h5>
+                    <h5 id="neg"></h5>
+                    <h5 id="neu"></h5>
+                </div>
+            </div>
+        </div>
+        
+    
+        {% for i in data %}
+        <div class="boder">
+            <div class="cards">
+            
+                <div class="img">
+                    <img src="{{i['url']}}" alt="Post">
+                </div>
+                <div class="options">
+                    <h6>{{i['email']}}</h6>
+                    <p class="descrption">{{i['desc']}}</p>
+                    <div class="action">
+                        <button style="cursor: pointer;" onclick="openCommentsModal('{{i['_id']}}')">comment</button>
+                        <button style="cursor: pointer;" onclick="openAnalysis('{{i['_id']}}')">Analyze</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+    <script>
+        async function getComments(id){
+            let data = await axios.post('http://localhost:5000/comments',{id:id})
+            comments = data.data
+            const parent = document.getElementById('com')
+            comments.forEach(element => {
+                const p = document.createElement('p')
+                p.innerText = element.comment
+                parent.appendChild(p)
+            });
+        }
+
+        function openCommentsModal(id) {
+            document.getElementById('post_id').value = id
+            document.getElementById('commentsModal').style.display = 'block';
+            closeAnalysis()
+            getComments(id)
+        }
+
+        function openAnalysis(postId){
+            document.getElementById('pos').value=postId;
+            document.getElementById('analysisModal').style.display = 'block';
+            closeCommentsModal()
+            doAnalysis(postId)
+        }
+        function closeCommentsModal() {
+            document.getElementById('commentsModal').style.display = 'none';
+            const parent = document.getElementById('com')
+            parent.innerHTML=""
+        }
+        function closeAnalysis(){
+            document.getElementById('analysisModal').style.display = 'none';
+            const parent = document.getElementById('ana')
+            document.getElementById('posi').innerText=""
+            document.getElementById('neg').innerText=""
+            document.getElementById('neu').innerText=""
+        }
+        window.onclick = function(event) {
+            var modal = document.getElementById('commentsModal');
+            var anal = document.getElementById('analysisModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+                anal.style.display='none';
+            }
+        };
+
+        async function pushComment(){
+            const com = document.getElementById('come').value;
+            const postId = document.getElementById('post_id').value
+            var res =await axios.post("http://localhost:5000/postcomment",{comment:com,postid:postId})
+            const parent = document.getElementById('com')
+            parent.innerHTML=""
+            getComments(postId)
+        }
+        async function  doAnalysis(postId){
+            let res = await axios.post('http://localhost:5000/analysis',{postid:postId})
+            let data = res.data
+            document.getElementById('posi').innerText="Total positive comments: "+data.postive
+            document.getElementById('neg').innerText="Total negative comments: "+data.negative
+            document.getElementById('neu').innerText="Total neutral comments: "+data.neutral
+        }
+    </script>
+    
+</body>
+
+</html>

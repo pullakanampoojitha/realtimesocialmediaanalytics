@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media | Login</title>
+    <!-- <link rel="stylesheet" href="static/bootstrap.min.css"> -->
+    <style>
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        .body {
+          
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-image: url('tu-imagen.jpg');*/
+            /* Adding an image gives a different touch when logging in*/
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px);
+            z-index: -1;
+            animation: drift 20s ease infinite alternate;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(-2%, -2%);
+            }
+
+            50% {
+                transform: translate(2%, 2%);
+            }
+
+            100% {
+                transform: translate(-2%, -2%);
+            }
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: pulse 1.5s ease-in-out infinite alternate;
+        }
+
+
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-header h2 {
+            color: #61dafb;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-header span {
+            color: #3a9bd9;
+        }
+
+        .login-header p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group i {
+            margin-right: 10px;
+            color: #61dafb;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: transparent;
+            color: #ffffff;
+            outline: none;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-size: 14px;
+            opacity: 0.7;
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+        }
+
+        .forgot-password {
+            color: #61dafb;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(to right, #3a9bd9, #61dafb);
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #61dafb, #3a9bd9);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .signup-link a {
+            color: #61dafb;
+            text-decoration: none;
+        }
+
+        .login-container {
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        .login-container.no-animation {
+            animation: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="background"></div>
+        <div class="login-container" id="loginContainer">
+            <div class="login-header">
+                <h2>Welcome to <span>Social Media</span></h2>
+                <p>Login to your account</p>
+            </div>
+            <div class="login-form">
+                <form action="/account/login" method="post">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+            <div class="signup-link">
+                Don't have an account? <a href="/register">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    <!-- <h1 style="width: 100%; text-align: center;">Real time social Media Analytics</h1>
+      <nav class="navbar bg-primary" data-bs-theme="dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+      </nav> -->
+</body>
+
+</html>

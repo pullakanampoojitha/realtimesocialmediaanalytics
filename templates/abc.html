@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetching Data using axios</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+       async function loadData(){
+            let res = await axios.get('http://localhost:5000/getdata')
+            console.log(res.data)
+            
+            const parent = document.getElementById('data')
+            res.data.forEach(element => {
+                const h1 = document.createElement('h1')
+                h1.innerText = element.name
+                h1.id = element.id
+                parent.appendChild(h1)
+            });
+        }
+    </script>
+</head>
+<body onload="loadData()">
+    <button id="btn">Get Data</button>
+    <div id="data">
+
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>

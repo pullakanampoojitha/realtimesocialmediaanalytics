@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media | My posts</title>
+    <style>
+        .posts {
+            max-width: 1200px;
+            width: 100%;
+            /* padding: 20px 130px; */
+            display: grid;
+            margin-top: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .cards {
+            height: 300px;
+            width: 200px;
+            padding: 10px;
+            text-align: center;
+            border: 4px solid orange;
+            border-radius: 4px;
+        }
+        .cards .img {
+            height: 200px;
+        }
+
+        img {
+            object-fit: contain;
+            height: 200px;
+            width: 100%;
+        }
+
+        .action {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .action button {
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            color: black;
+        }
+
+        .action {
+            border: 2px solid orange;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="posts">
+
+        {% for i in data %}
+        <div class="cards">
+            <div class="img">
+                <img src="{{i['url']}}" alt="Post">
+            </div>
+            <div class="options">
+                <p class="descrption">{{i['desc']}}</p>
+                <div class="action">
+                    <button>comment</button>
+                    <button>Delete</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+{
+	"folders": [
+		{
+			"path": "../intenship/frontend"
+		},
+		{
+			"path": "../intenship/css"
+		},
+		{
+			"path": "../intenship/paytm"
+		},
+		{
+			"path": "../intenship/javascript"
+		},
+		{
+			"path": "../html"
+		},
+		{
+			"path": "../intenship/react/firstapp"
+		},
+		{
+			"path": "../registration-form"
+		},
+		{
+			"path": "../intenship/backend/setup"
+		},
+		{
+			"path": "D:/calculator"
+		},
+		{
+			"path": "D:/Irrfan Khan"
+		},
+		{
+			"path": "D:/Tribute page"
+		},
+		{
+			"path": "D:/Todo list"
+		},
+		{
+			"path": "D:/login Authentication"
+		},
+		{
+			"path": "D:/codesoft-AI"
+		},
+		{
+			"path": "D:/templates"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "calculator"
+	}
+}
